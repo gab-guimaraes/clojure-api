@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: com.taoensso/faraday:1.11.4">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/taoensso/faraday/1.11.4/faraday-1.11.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
