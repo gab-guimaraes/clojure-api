@@ -35,6 +35,8 @@
     <orderEntry type="library" name="Leiningen: com.fasterxml.jackson.dataformat/jackson-dataformat-smile:2.9.6" level="project" />
     <orderEntry type="library" name="Leiningen: com.github.luben/zstd-jni:1.5.2-1" level="project" />
     <orderEntry type="library" name="Leiningen: com.googlecode.json-simple/json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Leiningen: com.stuartsierra/component:1.1.0" level="project" />
+    <orderEntry type="library" name="Leiningen: com.stuartsierra/dependency:1.0.0" level="project" />
     <orderEntry type="library" name="Leiningen: com.taoensso/encore:2.127.0" level="project" />
     <orderEntry type="library" name="Leiningen: com.taoensso/faraday:1.11.4" level="project" />
     <orderEntry type="library" name="Leiningen: com.taoensso/nippy:2.15.3" level="project" />

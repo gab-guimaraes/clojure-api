@@ -1,7 +1,9 @@
 (ns servico-clojure.servidor
   (:require [io.pedestal.http.route :as route]
             [io.pedestal.http :as http]
-            [servico-clojure.database :as database]))
+            [servico-clojure.database :as database]
+            [servico-clojure.servidor-component :as servidor-component]
+            [com.stuartsierra.component :as component]))
 
 (defn criar-tarefa-mapa [nome status]
   {:nome nome :status status})
@@ -30,16 +32,11 @@
 (defn funcao-hello [request]
   {:status 200 :body "Hello world"})
 
-(defn call-me-by-name [request]
-  (let [body-req (slurp (:body request))]
-    (println (get-in request [:body]))))
-
 (def routes (route/expand-routes
               #{["/hello" :get funcao-hello :route-name :hello-world]
                 ["/tarefa" :post criar-tarefa :route-name :criar-tarefa]
                 ["/tarefa" :get pesquisar-tarefa :route-name :pesquisar-tarefa]
-                ["/tarefa/all" :get pesquisar-todas :route-name :obter-todas]
-                ["/call-me" :post call-me-by-name :route-name :call-me-baby]}))
+                ["/tarefa/all" :get pesquisar-todas :route-name :obter-todas]}))
 
 (def service-map {::http/routes routes
                   ::http/port   9999
@@ -47,5 +44,7 @@
                   ::http/join?  false})
 
 (defn -main [& args]
-  (http/start (http/create-server service-map))
-  (println "server started... 😃"))
+  (let [servidor (servidor-component/new-server-component service-map)]
+    (component/start servidor)
+    (Thread/sleep 3000)
+    (component/stop servidor)))
