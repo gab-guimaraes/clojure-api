@@ -1,6 +1,8 @@
 (ns servico-clojure.servidor-component
   (:require [com.stuartsierra.component :as component]
-            [io.pedestal.http :as http]))
+            [io.pedestal.http :as http]
+            [servico-clojure.database :as database])
+            [servico-clojure.database :as database])
 
 (defrecord Servidor-Example [id]
   component/Lifecycle
@@ -29,3 +31,22 @@
 (defn new-server-component [service-map]
   (map->Servidor {:service-map service-map}))
 
+(defrecord Database [conn]
+  component/Lifecycle
+  (start [this]
+    (println "Starting Database... 🎲")
+    (database/check-and-create-table-v2 conn))
+  (stop [this]))
+
+(defn new-database-component [conn]
+  (map->Database {:conn conn}))
+
+; criando component
+;(defn example-system [config-options]
+;  (let [{:keys [service-map]} config-options]
+;    (component/system-map
+;      :servidor (new-server-component config-options))))
+
+(defn example-system [config-options]
+  (component/system-map
+    :servidor (new-server-component config-options)))

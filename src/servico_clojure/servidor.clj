@@ -43,8 +43,12 @@
                   ::http/type   :jetty
                   ::http/join?  false})
 
+;(defn -main [& args]
+;  (let [servidor (servidor-component/new-server-component service-map)]
+;    (component/start servidor)
+;    ;(Thread/sleep 3000)
+;    #_(component/stop servidor)))
+
 (defn -main [& args]
-  (let [servidor (servidor-component/new-server-component service-map)]
-    (component/start servidor)
-    (Thread/sleep 3000)
-    (component/stop servidor)))
+  (let [servidor (servidor-component/example-system service-map)]
+    (component/start-system servidor)))
