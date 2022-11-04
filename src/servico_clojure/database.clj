@@ -5,8 +5,6 @@
            :secret-key "<AWS_DYNAMODB_SECRET_KEY>"
            :endpoint   "http://localhost:8000"})
 
-(far/delete-table task :my-table)
-
 (defn insert-into-database [id tarefa name status]
   (println "creating item" id tarefa name status)
   (far/put-item task
@@ -22,9 +20,8 @@
 (defn get-all []
   (far/scan task :my-table))
 
-(far/delete-table task :my-table)
-
 (defn create-table-task []
+  (println "creating table... 🎲")
   (far/create-table task :my-table
                     [:id :n]
                     {:throughput {:read 1 :write 1}
@@ -38,7 +35,7 @@
 (defn check-and-create-table-v2 [conn]
   "consulta tabelas no database e verifica
   se tabela existe, se tabela nao existir, cria"
-  (let [tables (far/list-tables conn)
+  (let [tables (far/list-tables task)
         exist-table (filter #(= % :my-table) tables)]
     (if (empty? exist-table)
       (create-table-task)
@@ -52,4 +49,5 @@
     false))
 
 ;(far/list-tables task)
-
+;(far/delete-table task :my-table)
+;(far/delete-table task :my-table)

@@ -2,7 +2,7 @@
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as http]
             [servico-clojure.database :as database])
-            [servico-clojure.database :as database])
+  [servico-clojure.database :as database])
 
 (defrecord Servidor-Example [id]
   component/Lifecycle
@@ -49,4 +49,7 @@
 
 (defn example-system [config-options]
   (component/system-map
-    :servidor (new-server-component config-options)))
+    :database (new-database-component config-options)
+    :servidor (component/using (new-server-component config-options) [:database])))
+
+;cmd shift k / j
